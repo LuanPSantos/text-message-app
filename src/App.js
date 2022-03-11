@@ -17,6 +17,7 @@ class App_Stomp extends React.Component {
     let onConnected = () => {
       console.log("Connected!!")
       client.subscribe('/topic/messages', function (msg) {
+        console.log(msg)
         currentComponent.setState({ messages: msg.body })
       });
     }
@@ -39,11 +40,14 @@ class App_Stomp extends React.Component {
     setTimeout(() => {
       client.publish({
         destination: '/app/send',
-        body: {
-          from: "1",
-          text: "Text"
-        },
-        headers: { priority: '9', 'content-type': 'application/json' },
+        body: 'Hello Socket',
+        headers: { 'content-type': 'text/plain;charset=UTF-8' },
+      });
+
+      const quote = { symbol: 'APPL', value: 195.46 };
+      client.publish({
+        destination: '/app/send',
+        body: JSON.stringify(quote),
       });
     }, 2000)
 
