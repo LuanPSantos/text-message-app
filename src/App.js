@@ -12,14 +12,6 @@ class App_Stomp extends React.Component {
     };
   };
 
-  binArrayToJson(binArray){
-    var str = "";
-    for (var i = 0; i < binArray.length; i++) {
-      str += String.fromCharCode(parseInt(binArray[i]));
-    }
-    return JSON.parse(str)
-  }
-
   componentDidMount() {
     let currentComponent = this;
     let onConnected = () => {
